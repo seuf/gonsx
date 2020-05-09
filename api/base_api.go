@@ -1,5 +1,9 @@
 package api
 
+import (
+	"net/http"
+)
+
 // BaseAPI  - Base API struct.
 type BaseAPI struct {
 	method         string
@@ -10,11 +14,13 @@ type BaseAPI struct {
 	statusCode  int
 	rawResponse []byte
 	err         error
+	reqHeaders  http.Header
+	respHeaders http.Header
 }
 
 // NewBaseAPI - Returns a new object of the BaseAPI.
 func NewBaseAPI(method string, endpoint string, requestObject interface{}, responseObject interface{}) *BaseAPI {
-	return &BaseAPI{method, endpoint, requestObject, responseObject, 0, nil, nil}
+	return &BaseAPI{method, endpoint, requestObject, responseObject, 0, nil, nil, make(http.Header), make(http.Header)}
 }
 
 // RequestObject - Returns the request object of the BaseAPI
@@ -35,6 +41,16 @@ func (b *BaseAPI) Method() string {
 // Endpoint - Returns the Endpoint url string.
 func (b *BaseAPI) Endpoint() string {
 	return b.endpoint
+}
+
+// Header - Returns the header the api.
+func (b *BaseAPI) RequestHeaders() http.Header {
+	return b.reqHeaders
+}
+
+// Header - Returns the header the api.
+func (b *BaseAPI) ResponseHeaders() http.Header {
+	return b.respHeaders
 }
 
 // StatusCode - Returns the status code of the api.

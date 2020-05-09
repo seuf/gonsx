@@ -44,12 +44,12 @@ func (nsxClient *NSXClient) Do(api api.NSXApi) error {
 			log.Fatal(marshallingErr)
 		}
 		if nsxClient.debug {
-			log.Println(string(requestXMLBytes))
+			log.Printf(fmt.Sprintf("[DEBUG] XmlPayload : %s", requestXMLBytes))
 		}
 		requestPayload = bytes.NewReader(requestXMLBytes)
 	}
 	if nsxClient.debug {
-		log.Println("requestURL:", requestURL)
+		log.Printf(fmt.Sprintf("[DEBUG] requestURL: %s", requestURL))
 	}
 	req, err := http.NewRequest(api.Method(), requestURL, requestPayload)
 	if err != nil {
@@ -95,12 +95,12 @@ func (nsxClient *NSXClient) handleResponse(api api.NSXApi, res *http.Response) e
 			return err
 		}
 		if nsxClient.debug {
-			log.Printf("DECODED RESPONSE:\n%+v\n", api.ResponseObject())
+		log.Printf(fmt.Sprintf("[DEBUG] Response : %+v", api.ResponseObject()))
 		}
 	} else {
 		api.SetResponseObject(string(bodyText))
 		if nsxClient.debug {
-			log.Println(string(bodyText))
+			log.Printf(fmt.Sprintf("[DEBUG] Body Txt : %s", string(bodyText)))
 		}
 	}
 	return nil
