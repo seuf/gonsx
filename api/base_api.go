@@ -78,6 +78,16 @@ func (b *BaseAPI) SetRawResponse(rawResponse []byte) {
 	b.rawResponse = rawResponse
 }
 
+// SetHeader - Sets the headers on api object.
+func (b *BaseAPI) SetRequestHeader(k, v string) {
+	b.reqHeaders.Set(k, v)
+}
+
+// SetResponseHeader - Sets the headers on api object.
+func (b *BaseAPI) SetResponseHeader(h http.Header) {
+	b.respHeaders = h
+}
+
 // SetError - Sets the err on api object.
 func (b *BaseAPI) SetError(err error) {
 	b.err = err
