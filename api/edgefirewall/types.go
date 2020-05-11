@@ -27,8 +27,9 @@ type Application struct {
 }
 
 type FirewallRule struct {
-	RuleId         int         `xml:"ruleId,omitempty"`
-	RuleTag        int         `xml:"ruleTag,omitempty"`
+	XMLName        xml.Name    `xml:"firewallRule"`
+	RuleId         int         `xml:"id,omitempty"`
+	RuleTag        string      `xml:"ruleTag,omitempty"`
 	Name           string      `xml:"name"`
 	RuleType       string      `xml:"ruleType"`
 	Enabled        bool        `xml:"enabled"`
